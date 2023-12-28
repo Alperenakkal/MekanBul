@@ -35,7 +35,7 @@ function Admin() {
         state: { action: "new" },
       });
     } else if (evt.target.name === "Güncelle") {
-      return navigate('/admin/addupdate/venue/', {
+      return navigate(`/admin/addupdate/venue/${id}`, {
         state: { action: "update" },
       });
     }

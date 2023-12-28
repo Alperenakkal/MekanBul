@@ -38,7 +38,7 @@ function AddUpdateVenue() {
       ) : ( venue.isSuccess ? (
         <Header
           headerText="Yönetici"
-          motto={venue.data[id].name + " mekanını güncelleyin!"}
+          motto={venue.data.name + " mekanını güncelleyin!"}
         />
       ):(
         <Header headerText="Yönetici" />
