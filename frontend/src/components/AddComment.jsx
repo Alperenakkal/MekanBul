@@ -25,6 +25,7 @@ function AddComment() {
         rating: evt.target.elements.rating.value,
         text: evt.target.elements.text.value,
       };
+      console.log(newComment)
       VenueDataService.addComment(id, newComment).then(() => {
         dispatchComment({ type: "ADD_COMMENT_SUCCESS" });
       });

@@ -27,10 +27,11 @@ function Admin() {
     } catch {
       dispatchVenues({ type: "FETCH_FAILURE" });
     }
-  }, []);
+  }, [venues.isDeleted]);
   function handleClick(evt, id) {
     evt.preventDefault();
     if (evt.target.name === "Mekan Ekle") {
+     
       return navigate('/admin/addupdate/venue/new', {
         state: { action: "new" },
       });
@@ -44,6 +45,8 @@ function Admin() {
       
       VenueDataService.removeVenue(id).then(() => {
         dispatchVenues({ type: "REMOVE_VENUE" });
+        navigate(`/admin`);
+        window.location.reload();
         
         
       });
@@ -55,9 +58,7 @@ function Admin() {
    //Mekan ekle, sil,güncelle düğmelerine basıldığında
    //olacak olaylar buraya yazılacak
   }
-  if (venues.isDeleted) {
-    return navigate(`/admin`);
-  }
+  
   return (
     <>
       <Header headerText="Yönetici" motto="Mekanlarınızı Yönetin!" />

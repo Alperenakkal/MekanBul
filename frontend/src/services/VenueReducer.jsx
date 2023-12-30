@@ -17,6 +17,7 @@ const VenueReducer = (state, action) => {
           isSuccess: false,
           isError:true
         };
+        
     case "ADD_VENUE_SUCCESS":
       return {
         ...state,
@@ -27,6 +28,16 @@ const VenueReducer = (state, action) => {
         ...state,
         isSuccess: false,
       };
+    case "UPDATE_VENUE_SUCCESS":
+      return{
+        ...state,
+        isupdate:true
+      }
+      case "VENUE_FAILURE":
+        return{
+          ...state,
+          isvenueError:true,
+        }
     case "LOGIN_SUCCESS":
       return {
         ...state,
@@ -66,6 +77,7 @@ const VenueReducer = (state, action) => {
         ...state,
         isDeleted:true
       };
+    
     default:
       throw new Error("Hata");
   }
