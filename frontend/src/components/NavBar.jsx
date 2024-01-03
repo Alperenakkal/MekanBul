@@ -1,5 +1,17 @@
-import { NavLink} from "react-router-dom";
+import React, { useEffect } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import VenueDataService from "../services/VenueDataService";
 function NavBar() {
+  const navigate = useNavigate();
+  const getTokenFromLocalStorage = () => {
+    return localStorage.getItem("token");
+  };
+  const storedToken = getTokenFromLocalStorage();
+  
+
+      
+
+   
   return (
     <div className="navbar-default navbar navbar-fixed-top">
       <div className="container">
@@ -19,8 +31,12 @@ function NavBar() {
         <div id="navbar-main" className="navbar-collapse collapse">
           <ul className="nav navbar-nav">
           <li>
-              <NavLink to={"admin"}>Yönetici</NavLink>                   
-            </li>
+                {storedToken ? (
+              <NavLink to={"admin"}>Yönetici</NavLink>
+                ) : (
+                <NavLink to={"login"}>Yönetici</NavLink>
+                 )}
+              </li>
             <li>
             <NavLink to={"about"}>Hakkında</NavLink> 
             </li>

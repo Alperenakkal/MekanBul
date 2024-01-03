@@ -7,6 +7,8 @@ import VenueDetail from "./components/VenueDetail";
 import AddComment from "./components/AddComment";
 import About from "./components/About";
 import Admin from "./components/Admin";
+import Login from "./components/Login";
+import Register from "./components/Register";
 import AddUpdateVenue from "./components/AddUpdateVenue";
 import PageNotFound from "./components/PageNotFound";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
@@ -19,6 +21,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <Route path="venue/:id/comment/new" element={<AddComment/>}/>
     <Route path="about" element={<About/>}/>
     <Route path="admin" element={<Admin/>}/>
+    <Route path="login" element={<Login/>}/>
+    <Route path="signup" element={<Register/>}/>
     <Route path="admin/addupdate/venue/:id" element={<AddUpdateVenue/>}/>
     <Route path="admin/addupdate/venue/new" element={<AddUpdateVenue/>}/>
     <Route path="*" element={<PageNotFound/>} />

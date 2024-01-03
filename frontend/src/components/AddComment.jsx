@@ -6,6 +6,10 @@ import Header from "./Header";
 import React from "react";
 function AddComment() {
   const { id } = useParams();
+  const getTokenFromLocalStorage = () => {
+    return localStorage.getItem("token");
+  };
+  const storedToken = getTokenFromLocalStorage();
   var navigate = useNavigate();
   let location = useLocation();
   const [comment, dispatchComment] = React.useReducer(VenueReducer, {
@@ -13,20 +17,21 @@ function AddComment() {
     isSuccess: false,
     isError: false,
   });
+  console.log(storedToken);
   const onSubmit = (evt) => {
     evt.preventDefault();
     if (
-      evt.target.elements.author.value &&
+     
       evt.target.elements.rating.value &&
       evt.target.elements.text.value
     ) {
       var newComment = {
-        author: evt.target.elements.author.value,
+        
         rating: evt.target.elements.rating.value,
         text: evt.target.elements.text.value,
       };
       console.log(newComment)
-      VenueDataService.addComment(id, newComment).then(() => {
+      VenueDataService.addComment(id, newComment,storedToken).then(() => {
         dispatchComment({ type: "ADD_COMMENT_SUCCESS" });
       });
     } else {
@@ -55,18 +60,7 @@ function AddComment() {
             id="yorumEkle"
             onSubmit={(evt) => onSubmit(evt)}
           >
-            <div className="form-group">
-              <label className="col-xs-10 col-sm-2 control-label">
-                Ad Soyad:
-              </label>
-              <div className="col-xs-12 col-sm-10">
-                <input
-                  className="form-control"
-                  name="author"
-                  placeholder="Ad Soyad"
-                />
-              </div>
-            </div>
+            
             <div className="form-group">
               <label className="col-xs-10 col-sm-2 control-label">Puan:</label>
               <div className="col-xs-12 col-sm-2">

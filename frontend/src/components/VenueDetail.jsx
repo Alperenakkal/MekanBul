@@ -9,6 +9,10 @@ import VenueReducer from "../services/VenueReducer";
 import VenuDataService from "../services/VenueDataService";
 import React from "react";
 const VenueDetail = () => {
+  const getTokenFromLocalStorage = () => {
+    return localStorage.getItem("token");
+  };
+  const storedToken = getTokenFromLocalStorage();
   const [venue, dispatchVenue] = React.useReducer(VenueReducer, {
     data: [],
     isLoading: false,
@@ -91,6 +95,7 @@ const VenueDetail = () => {
               <div className="col-xs-12 ">
                 <div className="panel panel-primary">
                   <div className="panel-heading ">
+                  {storedToken ? (
                     <NavLink
                       className="btn btn-default pull-right"
                       to={`/venue/${id}/comment/new`}
@@ -98,6 +103,9 @@ const VenueDetail = () => {
                     >
                       Yorum Ekle{" "}
                     </NavLink>
+                     ):<NavLink to={"/login"} 
+                     state={{ name: venue.data.name }}
+                     className="btn btn-default pull-right">Yorum Ekle{" "}</NavLink>}
                     <h2 className="panel-title ">Yorumlar</h2>
                   </div>
                   <div className="panel-body ">

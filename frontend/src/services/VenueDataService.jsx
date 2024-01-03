@@ -33,7 +33,7 @@ class VenueDataService {
   }
 
   register(data){
-    return http.post("/register",data);
+    return http.post("/signup",data);
   }
   deleteAllVenues() {
     return http.delete("/venues");
@@ -44,8 +44,12 @@ class VenueDataService {
   updateComment(venueID, commentID, data) {
     return http.put(`/venues/${venueID}/comments/${commentID}`, data);
   }
-  addComment(venueID, data) {
-    return http.post(`/venues/${venueID}/comments`, data);
+  addComment(venueID, data,token) {
+    const headers = {
+      Authorization: `Bearer ${token}`, // Token'ı talep başlığına ekleyin
+      'Content-Type': 'application/json', // JSON içeriği bildirin
+    };
+    return http.post(`/venues/${venueID}/comments`, data,headers);
   }
   removeComment(venueID, commentID) {
     return http.delete(`/venues/${venueID}/comments/${commentID}`);
