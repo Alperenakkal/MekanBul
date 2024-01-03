@@ -67,9 +67,13 @@ var updateRating = function (venueid) {
       calculateLastRating(venue);
     });
 };
-const createComment = function (req, res, incomingVenue) {
+const createComment = function (req, res, incomingVenue,author) {
   try {
-    incomingVenue.comments.push(req.body);
+    incomingVenue.comments.push({
+      author:author,
+      rating:req.body.rating,
+      text:req.body.text
+    });
     incomingVenue.save().then(function (venue) {
       var comment;
       updateRating(venue._id);
@@ -80,14 +84,30 @@ const createComment = function (req, res, incomingVenue) {
     createResponse(res, 400, { status: "Yorum oluşturulamadı!" });
   }
 };
+const getUser=async (req,res,callback)=>{
+  if(req.auth && req.auth.email){
+    try{
+      await User.find0ne({email:req.auth.email}).then(function(user){
+        callback(req,res,user.name);
+      });
+    }
+    catch(error){
+      createResponse(res,400,{status:"Kullanıcı bulunamadı"});
+    }
+  }else{
+    createResponse(res,400,{status:"Token girilemedi"});
+  }
+};
 const addComment = async function (req, res) {
   try {
-    await Venue.findById(req.params.venueid)
+    await getUser(req,res,(req,res,userName)=>{
+    Venue.findById(req.params.venueid)
       .select("comments")
       .exec()
       .then((incomingVenue) => {
-        createComment(req, res, incomingVenue);
+        createComment(req, res, incomingVenue,userName);
       });
+    });
   } catch (error) {
     createResponse(res, 400, { status: "Yorum ekleme başarısız" });
   }
